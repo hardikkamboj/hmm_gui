@@ -1,8 +1,12 @@
-from tkinter import *
+from tkinter import Entry,Label,Button,END,Tk,mainloop
 import pandas as pd
+from hmm import *
+from config import *
 
 master = Tk()
 master.geometry('500x500')
+
+parameters = Hmm_parameters()
 
 def show_transition_matrix():
   p_ss = e_ss.get()
@@ -15,14 +19,16 @@ def show_transition_matrix():
 
   p_sh = e_sh.get()
   p_sg = e_sg.get()
-  p_rh = e_sh.get()
+  p_rh = e_rh.get()
   p_rg = e_rg.get()
 
+  transition_matrix = [p_ss,p_sr,p_rs,p_rr]
+  emission_matrix = [p_sh,p_sg,p_rh,p_rg]
+  prob_weather = [p_s,p_r]
+  parameters.update_values(transition_matrix,prob_weather,emission_matrix)
+  parameters.display_parameters()
   
-
-  temp = pd.DataFrame({'Sunny':[p_ss,p_rs],'Rainy':[p_sr,p_rr]},
-                        index = ['Sunny','Rainy'])
-  print(temp)
+                 
 
 Label(master,text = 'Sunny').grid(row =1,column=0)
 Label(master,text = 'Rainy').grid(row = 2,column=0)
@@ -48,6 +54,8 @@ Label(master,text = 'p(sunny)').grid(row = 4,column=0)
 Label(master,text = 'p(rainy)').grid(row = 5,column=0)
 e_s = Entry(master)
 e_r = Entry(master)
+e_s.insert(END,0.8)
+e_r.insert(END,0.2)
 e_s.grid(row = 4,column = 1)
 e_r.grid(row = 5,column = 1)
 

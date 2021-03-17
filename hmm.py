@@ -44,5 +44,5 @@ def predict_weather_sequence(moods):
 
     return weather
 
-print(p_s)
-print(predict_weather('G'))
+# print(p_s)
+# print(predict_weather('G'))
